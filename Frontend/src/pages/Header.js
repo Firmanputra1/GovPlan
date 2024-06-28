@@ -1,5 +1,5 @@
 // src/pages/Header.js
-import React from 'react';
+import React from "react";
 import {
   HeaderWrapper,
   Nav,
@@ -9,7 +9,7 @@ import {
   ButtonWrapper,
   LoginButton,
   SignupButton,
-} from '../components/StyledHeader';
+} from "../components/StyledHeader";
 
 const Header = () => {
   return (
