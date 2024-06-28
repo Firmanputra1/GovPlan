@@ -6,8 +6,9 @@ import {
   NavLink,
   Logo,
   ProfileIcon,
-  LoginButtonWrapper,
+  ButtonWrapper,
   LoginButton,
+  SignupButton,
 } from '../components/StyledHeader';
 
 const Header = () => {
@@ -21,10 +22,11 @@ const Header = () => {
         <NavLink href="#">Pengingat</NavLink>
         <NavLink href="#">Catatan</NavLink>
       </Nav>
-      <LoginButtonWrapper>
-        <LoginButton href="#">Login</LoginButton>
+      <ButtonWrapper>
+        <LoginButton href="login">Login</LoginButton>
+        <SignupButton href="#">Daftar</SignupButton>
         <ProfileIcon />
-      </LoginButtonWrapper>
+      </ButtonWrapper>
     </HeaderWrapper>
   );
 };

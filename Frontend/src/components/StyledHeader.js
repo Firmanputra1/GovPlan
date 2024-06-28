@@ -38,14 +38,28 @@ export const ProfileIcon = styled.div`
   background-size: cover;
 `;
 
-export const LoginButtonWrapper = styled.div`
+export const ButtonWrapper = styled.div`
   display: flex;
   align-items: center;
   gap: 10px;
 `;
 
 export const LoginButton = styled.a`
-  background-color: rgb(235, 207, 147);;
+  background-color: white;
+  color: #d97d0d;
+  padding: 5px 10px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 1em;
+
+  &:hover {
+    background-color: #b56508;
+    color: white;
+  }
+`;
+
+export const SignupButton = styled.a`
+  background-color: white;
   color: #d97d0d;
   padding: 5px 10px;
   border-radius: 5px;
