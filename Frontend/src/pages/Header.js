@@ -8,7 +8,6 @@ import {
   ProfileIcon,
   ButtonWrapper,
   LoginButton,
-  SignupButton,
 } from '../components/StyledHeader';
 
 const Header = () => {
@@ -24,7 +23,6 @@ const Header = () => {
       </Nav>
       <ButtonWrapper>
         <LoginButton href="login">Login</LoginButton>
-        <SignupButton href="#">Daftar</SignupButton>
         <ProfileIcon />
       </ButtonWrapper>
     </HeaderWrapper>
