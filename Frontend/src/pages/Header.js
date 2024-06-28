@@ -15,8 +15,8 @@ const Header = () => {
     <HeaderWrapper>
       <Logo />
       <Nav>
-        <NavLink href="#">Beranda</NavLink>
-        <NavLink href="#">Kalender</NavLink>
+        <NavLink href="home">Beranda</NavLink>
+        <NavLink href="calendar">Kalender</NavLink>
         <NavLink href="#">Tugas</NavLink>
         <NavLink href="#">Pengingat</NavLink>
         <NavLink href="#">Catatan</NavLink>
