@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   LoginWrapper,
   LoginForm,
@@ -7,37 +7,44 @@ import {
   Input,
   SubmitButton,
   Title,
-} from '../components/StyledLogin';
+} from "../components/StyledLogin";
 
 const Login = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState(null); // State untuk menyimpan pesan kesalahan
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(null); // Reset pesan kesalahan sebelum membuat request
+    setError(null);
 
     try {
-      const response = await fetch('https://your-api-endpoint.com/login', {
-        method: 'POST',
+      console.log("Sending request to server with:", { username, password });
+
+      const response = await fetch("http://localhost:5000/api/login", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ username, password }),
       });
 
       if (!response.ok) {
-        throw new Error('Login failed');
+        const errorData = await response.json();
+        console.error("Error response from server:", errorData);
+        throw new Error(errorData.message || "Login failed");
       }
 
       const data = await response.json();
-      console.log('Login successful:', data);
+      console.log("Login successful:", data);
       // Simpan token atau lakukan tindakan lain setelah login berhasil
-
+      // Contoh: localStorage.setItem('token', data.token);
     } catch (error) {
-      setError('Login failed. Please check your username and password.');
-      console.error('Login error:', error);
+      setError(
+        error.message ||
+          "Login failed. Please check your username and password."
+      );
+      console.error("Login error:", error);
     }
   };
 
@@ -45,7 +52,7 @@ const Login = () => {
     <LoginWrapper>
       <LoginForm onSubmit={handleSubmit}>
         <Title>Login</Title>
-        {error && <p style={{ color: 'red' }}>{error}</p>} {/* Menampilkan pesan kesalahan */}
+        {error && <p style={{ color: "red" }}>{error}</p>}
         <FormGroup>
           <Label htmlFor="username">Username</Label>
           <Input

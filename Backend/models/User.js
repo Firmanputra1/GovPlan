@@ -37,20 +37,20 @@ const User = sequelize.define(
       type: DataTypes.ENUM("staf", "admin"),
       defaultValue: "staf",
     },
-    createdAt: {
-      type: DataTypes.DATE,
-      defaultValue: DataTypes.NOW,
-    },
-    updatedAt: {
-      type: DataTypes.DATE,
-      defaultValue: DataTypes.NOW,
-    },
+    // createdAt: {
+    //   type: DataTypes.DATE,
+    //   defaultValue: DataTypes.NOW,
+    // },
+    // updatedAt: {
+    //   type: DataTypes.DATE,
+    //   defaultValue: DataTypes.NOW,
+    // },
   },
   {
     tableName: "tbl_user",
-    timestamps: true,
-    createdAt: "createdAt",
-    updatedAt: "updatedAt",
+    timestamps: false,
+    // createdAt: "createdAt",
+    // updatedAt: "updatedAt",
   }
 );
 

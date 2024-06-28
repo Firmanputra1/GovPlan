@@ -1,20 +1,29 @@
 const express = require("express");
-const { sequelize } = require("./config/db");
+const cors = require("cors");
 const dotenv = require("dotenv");
+const bodyParser = require("body-parser");
+const { sequelize } = require("./config/db");
+const loginRoutes = require("./routes/loginRoutes");
 
 dotenv.config();
 
 const app = express();
 
-app.use(express.json());
+// Middleware
+app.use(express.json()); // untuk mengizinkan parsing JSON dari body request
+app.use(cors()); // untuk mengizinkan CORS
+app.use(bodyParser.json());
 
-app.use("/api/login", require("./routes/loginRoutes"));
+// Routes
+app.use("/api", loginRoutes); // menggunakan loginRoutes di /api
 
+// Database connection
 sequelize
   .authenticate()
   .then(() => console.log("Database connected..."))
-  .catch((err) => console.log("Error: " + err));
+  .catch((err) => console.error("Error connecting to database:", err));
 
+// Error handling middleware
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).json({ error: "Internal Server Error" });
