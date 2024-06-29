@@ -17,7 +17,7 @@ const Header = () => {
       <Nav>
         <NavLink href="home">Beranda</NavLink>
         <NavLink href="calendar">Kalender</NavLink>
-        <NavLink href="#">Tugas</NavLink>
+        <NavLink href="tugas">Tugas</NavLink>
         <NavLink href="#">Pengingat</NavLink>
         <NavLink href="#">Catatan</NavLink>
       </Nav>

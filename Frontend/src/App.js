@@ -6,7 +6,7 @@ import Login from './pages/Login';
 import Calendar from './pages/Calendar';
 import Header from './pages/Header'; // Import Header dari lokasi yang benar
 import Footer from './pages/Footer'; // Import Footer dari lokasi yang benar
-
+import Tugas from './pages/Tugas';
 function App() {
   return (
     <Router>
@@ -17,6 +17,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/calendar" element={<Calendar />} />
+            <Route path="/tugas" element={<Tugas />} />
           </Routes>
         </main>
         <Footer />
