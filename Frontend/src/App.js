@@ -4,8 +4,9 @@ import './App.css';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Calendar from './pages/Calendar';
-import Header from './pages/Header'; // Import Header dari lokasi yang benar
-import Footer from './pages/Footer'; // Import Footer dari lokasi yang benar
+import Header from './pages/Header';
+import Footer from './pages/Footer';
+import Pengingat from './pages/Pengingat';
 
 function App() {
   return (
@@ -14,9 +15,10 @@ function App() {
         <Header />
         <main style={{ paddingBottom: '60px' }}>
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/home" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/calendar" element={<Calendar />} />
+            <Route path="/pengingat" element={<Pengingat />} />
           </Routes>
         </main>
         <Footer />
