@@ -7,6 +7,7 @@ import Login from './pages/Login';
 import Calendar from './pages/Calendar';
 import Tugas from './pages/Tugas';
 import Pengingat from './pages/Pengingat';
+import Catatan from './pages/Catatan';
 import Footer from './pages/Footer';
 
 function App() {
