@@ -4,6 +4,7 @@ const dotenv = require("dotenv");
 const bodyParser = require("body-parser");
 const { sequelize } = require("./config/db");
 const loginRoutes = require("./routes/loginRoutes");
+const agendaRoutes = require("./routes/agendaRoutes"); // Sesuaikan path jika diperlukan
 
 dotenv.config();
 
@@ -16,6 +17,7 @@ app.use(bodyParser.json());
 
 // Routes
 app.use("/api", loginRoutes); // menggunakan loginRoutes di /api
+app.use("/api/agendas", agendaRoutes); // Prefix '/api/agendas' untuk semua rute agenda
 
 // Database connection
 sequelize
