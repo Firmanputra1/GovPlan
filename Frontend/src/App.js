@@ -1,13 +1,13 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css';
+import Header from './pages/Header';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Calendar from './pages/Calendar';
-import Header from './pages/Header';
-import Footer from './pages/Footer';
+import Tugas from './pages/Tugas';
 import Pengingat from './pages/Pengingat';
-import Catatan from './pages/Catatan';
+import Footer from './pages/Footer';
 
 function App() {
   return (
@@ -20,6 +20,7 @@ function App() {
             <Route path="/home" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/calendar" element={<Calendar />} />
+            <Route path="/tugas" element={<Tugas />} />
             <Route path="/pengingat" element={<Pengingat />} />
             <Route path="/catatan" element={<Catatan />} />
           </Routes>

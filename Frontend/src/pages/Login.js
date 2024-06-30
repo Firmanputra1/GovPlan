@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   LoginWrapper,
   LoginForm,
@@ -13,6 +14,7 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -39,6 +41,9 @@ const Login = () => {
       console.log("Login successful:", data);
       // Simpan token atau lakukan tindakan lain setelah login berhasil
       // Contoh: localStorage.setItem('token', data.token);
+
+      // Navigate to home page after successful login
+      navigate("/home");
     } catch (error) {
       setError(
         error.message ||
