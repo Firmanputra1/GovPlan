@@ -19,7 +19,7 @@ const Header = () => {
         <NavLink href="calendar">Kalender</NavLink>
         <NavLink href="#">Tugas</NavLink>
         <NavLink href="pengingat">Pengingat</NavLink>
-        <NavLink href="#">Catatan</NavLink>
+        <NavLink href="catatan">Catatan</NavLink>
       </Nav>
       <ButtonWrapper>
         <LoginButton href="login">Login</LoginButton>

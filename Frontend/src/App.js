@@ -7,6 +7,7 @@ import Calendar from './pages/Calendar';
 import Header from './pages/Header';
 import Footer from './pages/Footer';
 import Pengingat from './pages/Pengingat';
+import Catatan from './pages/Catatan';
 
 function App() {
   return (
@@ -15,10 +16,12 @@ function App() {
         <Header />
         <main style={{ paddingBottom: '60px' }}>
           <Routes>
+            <Route path="/" element={<Home />} />
             <Route path="/home" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/calendar" element={<Calendar />} />
             <Route path="/pengingat" element={<Pengingat />} />
+            <Route path="/catatan" element={<Catatan />} />
           </Routes>
         </main>
         <Footer />
