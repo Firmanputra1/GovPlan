@@ -190,6 +190,7 @@ const Tugas = () => {
               </TableRow>
             </thead>
             <tbody>
+<<<<<<< HEAD
               {agendaItems.map((item) => (
                 <TableRow key={item.id_agenda}>
                   <TableCell>{item.nama_agenda}</TableCell>
@@ -203,6 +204,17 @@ const Tugas = () => {
                     <DeleteButton onClick={() => handleDelete(item.id_agenda)}>
                       Hapus
                     </DeleteButton>
+=======
+              {agendaItems.map((item, index) => (
+                <TableRow key={index}>
+                  <TableCell>{item.title}</TableCell>
+                  <TableCell>{item.date}</TableCell>
+                  <TableCell>{item.time}</TableCell>
+                  <TableCell>{item.description}</TableCell>
+                  <TableCell>
+                    <EditButton onClick={() => handleEdit(index)}>Edit</EditButton>
+                    <DeleteButton onClick={() => handleDelete(index)}>Hapus</DeleteButton>
+>>>>>>> 5f79818a0dd826613cedeca881649578d0eba86d
                   </TableCell>
                 </TableRow>
               ))}
