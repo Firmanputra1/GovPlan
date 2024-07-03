@@ -10,12 +10,11 @@ import {
   Input,
   TextArea,
   Button,
-  ListContainer,
-  ItemContainer,
-  ItemTitle,
-  ItemDate,
-  ItemTime,
-  ItemDescription,
+  TableContainer,
+  Table,
+  TableHeader,
+  TableRow,
+  TableCell,
   EditButton,
   DeleteButton,
 } from '../components/StyledTugas';
@@ -116,18 +115,33 @@ const Tugas = () => {
             {isEditing !== null ? 'Simpan Perubahan' : 'Tambah Agenda'}
           </Button>
         </Form>
-        <ListContainer>
-          {agendaItems.map((item, index) => (
-            <ItemContainer key={index}>
-              <ItemTitle>{item.title}</ItemTitle>
-              <ItemDate>{item.date}</ItemDate>
-              <ItemTime>{item.time}</ItemTime>
-              <ItemDescription>{item.description}</ItemDescription>
-              <EditButton onClick={() => handleEdit(index)}>Edit</EditButton>
-              <DeleteButton onClick={() => handleDelete(index)}>Hapus</DeleteButton>
-            </ItemContainer>
-          ))}
-        </ListContainer>
+        <TableContainer>
+          <Table>
+            <thead>
+              <TableRow>
+                <TableHeader>Nama Agenda</TableHeader>
+                <TableHeader>Tanggal</TableHeader>
+                <TableHeader>Waktu</TableHeader>
+                <TableHeader>Deskripsi</TableHeader>
+                <TableHeader>Aksi</TableHeader>
+              </TableRow>
+            </thead>
+            <tbody>
+              {agendaItems.map((item, index) => (
+                <TableRow key={index}>
+                  <TableCell>{item.title}</TableCell>
+                  <TableCell>{item.date}</TableCell>
+                  <TableCell>{item.time}</TableCell>
+                  <TableCell>{item.description}</TableCell>
+                  <TableCell>
+                    <EditButton onClick={() => handleEdit(index)}>Edit</EditButton>
+                    <DeleteButton onClick={() => handleDelete(index)}>Hapus</DeleteButton>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </tbody>
+          </Table>
+        </TableContainer>
       </Content>
     </Container>
   );

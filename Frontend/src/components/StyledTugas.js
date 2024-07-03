@@ -1,127 +1,96 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   padding: 20px;
-  background-color: #f0f2f5;
 `;
 
 export const Header = styled.header`
-  width: 100%;
-  color: black;
-  padding: 20px 0;
   text-align: center;
+  margin-bottom: 20px;
 `;
 
 export const Title = styled.h1`
-  margin: 0;
-  font-size: 2em;
+  font-size: 24px;
 `;
 
 export const Content = styled.div`
-  width: 100%;
   max-width: 800px;
-  margin-top: 20px;
+  margin: 0 auto;
 `;
 
 export const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
 `;
 
 export const FormGroup = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  margin-bottom: 10px;
 `;
 
 export const Label = styled.label`
+  display: block;
   margin-bottom: 5px;
-  font-size: 1em;
-  color: #333;
 `;
 
 export const Input = styled.input`
-  padding: 10px;
-  font-size: 1em;
-  border: 1px solid #ddd;
-  border-radius: 4px;
   width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
 `;
 
 export const TextArea = styled.textarea`
-  padding: 10px;
-  font-size: 1em;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  resize: vertical;
   width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
 `;
 
 export const Button = styled.button`
-  padding: 10px;
-  font-size: 1em;
-  color: #fff;
+  padding: 10px 15px;
   background-color: #007bff;
+  color: white;
   border: none;
-  border-radius: 4px;
   cursor: pointer;
-  &:not(:last-child) {
-    margin-right: 10px;
+`;
+
+export const TableContainer = styled.div`
+  overflow-x: auto;
+`;
+
+export const Table = styled.table`
+  width: 100%;
+  border-collapse: collapse;
+`;
+
+export const TableHeader = styled.th`
+  background-color: #007bff;
+  color: white;
+  padding: 10px;
+  text-align: left;
+`;
+
+export const TableRow = styled.tr`
+  &:nth-child(even) {
+    background-color: #f2f2f2;
   }
 `;
 
-export const ListContainer = styled.div`
-  margin-top: 20px;
-`;
-
-export const ItemContainer = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 2fr auto auto;
-  gap: 10px;
-  align-items: center;
-  padding: 15px;
-  margin-bottom: 15px;
+export const TableCell = styled.td`
+  padding: 10px;
   border: 1px solid #ddd;
-  border-radius: 8px;
-  background-color: #fff;
 `;
 
-export const ItemTitle = styled.h2`
-  margin: 0;
-  font-size: 1.5em;
-  color: #333;
+export const EditButton = styled.button`
+  margin-right: 5px;
+  padding: 5px 10px;
+  background-color: #ffc107;
+  color: white;
+  border: none;
+  cursor: pointer;
 `;
 
-export const ItemDate = styled.p`
-  margin: 5px 0;
-  font-size: 1.2em;
-  color: #555;
-`;
-
-export const ItemTime = styled.p`
-  margin: 5px 0;
-  font-size: 1.2em;
-  color: #555;
-`;
-
-export const ItemDescription = styled.p`
-  margin: 5px 0;
-  font-size: 1em;
-  color: #777;
-`;
-
-export const EditButton = styled(Button)`
-  background-color: #28a745;
-`;
-
-export const DeleteButton = styled(Button)`
+export const DeleteButton = styled.button`
+  padding: 5px 10px;
   background-color: #dc3545;
+  color: white;
+  border: none;
+  cursor: pointer;
 `;
