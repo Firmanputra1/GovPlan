@@ -1,7 +1,7 @@
-const { Agenda } = require("../models/Agenda");
-const { User } = require("../models/User");
+const Agenda = require("../models/Agenda");
+const User = require("../models/User");
 
-// Membuat agenda baru
+// Create new agenda
 exports.createAgenda = async (req, res) => {
   try {
     const {
@@ -9,14 +9,14 @@ exports.createAgenda = async (req, res) => {
       tanggal_agenda,
       waktu_agenda,
       deskripsi_agenda,
-      // id_user,
+      id_user,
     } = req.body;
     const newAgenda = await Agenda.create({
       nama_agenda,
       tanggal_agenda,
       waktu_agenda,
       deskripsi_agenda,
-      // id_user,
+      id_user,
     });
     res.status(201).json(newAgenda);
   } catch (error) {
@@ -24,7 +24,7 @@ exports.createAgenda = async (req, res) => {
   }
 };
 
-// Mendapatkan semua agenda
+// Get all agendas
 exports.getAllAgendas = async (req, res) => {
   try {
     const agendas = await Agenda.findAll({
@@ -36,7 +36,7 @@ exports.getAllAgendas = async (req, res) => {
   }
 };
 
-// Mendapatkan satu agenda berdasarkan id_agenda
+// Get agenda by id
 exports.getAgendaById = async (req, res) => {
   try {
     const { id_agenda } = req.params;
@@ -46,14 +46,14 @@ exports.getAgendaById = async (req, res) => {
     if (agenda) {
       res.status(200).json(agenda);
     } else {
-      res.status(404).json({ error: "Agenda tidak ditemukan" });
+      res.status(404).json({ error: "Agenda not found" });
     }
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
 
-// Memperbarui agenda berdasarkan id_agenda
+// Update agenda by id
 exports.updateAgenda = async (req, res) => {
   try {
     const { id_agenda } = req.params;
@@ -74,14 +74,14 @@ exports.updateAgenda = async (req, res) => {
       await agenda.save();
       res.status(200).json(agenda);
     } else {
-      res.status(404).json({ error: "Agenda tidak ditemukan" });
+      res.status(404).json({ error: "Agenda not found" });
     }
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
 
-// Menghapus agenda berdasarkan id_agenda
+// Delete agenda by id
 exports.deleteAgenda = async (req, res) => {
   try {
     const { id_agenda } = req.params;
@@ -90,7 +90,7 @@ exports.deleteAgenda = async (req, res) => {
       await agenda.destroy();
       res.status(204).send();
     } else {
-      res.status(404).json({ error: "Agenda tidak ditemukan" });
+      res.status(404).json({ error: "Agenda not found" });
     }
   } catch (error) {
     res.status(500).json({ error: error.message });

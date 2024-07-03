@@ -2,19 +2,19 @@ const express = require("express");
 const router = express.Router();
 const agendaController = require("../controllers/agendaController");
 
-// Membuat agenda baru
-router.post("/post", agendaController.createAgenda);
+// Create new agenda
+router.post("/", agendaController.createAgenda);
 
-// Mendapatkan semua agenda
-router.get("/get", agendaController.getAllAgendas);
+// Get all agendas
+router.get("/", agendaController.getAllAgendas);
 
-// Mendapatkan satu agenda berdasarkan id_agenda
+// Get agenda by id
 router.get("/:id_agenda", agendaController.getAgendaById);
 
-// Memperbarui agenda berdasarkan id_agenda
+// Update agenda by id
 router.put("/:id_agenda", agendaController.updateAgenda);
 
-// Menghapus agenda berdasarkan id_agenda
+// Delete agenda by id
 router.delete("/:id_agenda", agendaController.deleteAgenda);
 
 module.exports = router;

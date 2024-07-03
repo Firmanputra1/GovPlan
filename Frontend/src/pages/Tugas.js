@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from "react";
 import {
   Container,
   Header,
@@ -10,60 +10,122 @@ import {
   Input,
   TextArea,
   Button,
-  ListContainer,
-  ItemContainer,
-  ItemTitle,
-  ItemDate,
-  ItemTime,
-  ItemDescription,
+  TableContainer,
+  Table,
+  TableHeader,
+  TableRow,
+  TableCell,
   EditButton,
   DeleteButton,
-} from '../components/StyledTugas';
+} from "../components/StyledTugas";
 
 const Tugas = () => {
   const [agendaItems, setAgendaItems] = useState([]);
   const [isEditing, setIsEditing] = useState(null);
   const [formState, setFormState] = useState({
-    title: '',
-    date: '',
-    time: '',
-    description: ''
+    nama_agenda: "",
+    tanggal_agenda: "",
+    waktu_agenda: "",
+    deskripsi_agenda: "",
+    id_user: 1, // Assuming you have a user with id 1
   });
+
+  useEffect(() => {
+    fetchAgendas();
+  }, []);
+
+  const fetchAgendas = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/api/agendas");
+      const data = await response.json();
+      setAgendaItems(data);
+    } catch (error) {
+      console.error("Error fetching agendas:", error);
+    }
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormState({ ...formState, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const today = new Date().toISOString().split('T')[0];
-    if (formState.date < today) {
-      alert('Tidak dapat memilih tanggal yang sudah lewat.');
+    const { nama_agenda, tanggal_agenda, waktu_agenda, deskripsi_agenda } =
+      formState;
+    const today = new Date().toISOString().split("T")[0];
+
+    if (tanggal_agenda < today) {
+      alert("Tidak dapat memilih tanggal yang sudah lewat.");
       return;
     }
+
     if (isEditing !== null) {
-      const updatedItems = agendaItems.map((item, index) =>
-        index === isEditing ? formState : item
-      );
-      setAgendaItems(updatedItems);
-      setIsEditing(null);
+      try {
+        const response = await fetch(
+          `http://localhost:5000/api/agendas/${isEditing}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formState),
+          }
+        );
+        const updatedAgenda = await response.json();
+        setAgendaItems(
+          agendaItems.map((item) =>
+            item.id_agenda === isEditing ? updatedAgenda : item
+          )
+        );
+        setIsEditing(null);
+      } catch (error) {
+        console.error("Error updating agenda:", error);
+      }
     } else {
-      setAgendaItems([...agendaItems, formState]);
+      try {
+        const response = await fetch("http://localhost:5000/api/agendas", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formState),
+        });
+        const newAgenda = await response.json();
+        setAgendaItems([...agendaItems, newAgenda]);
+      } catch (error) {
+        console.error("Error creating agenda:", error);
+      }
     }
-    setFormState({ title: '', date: '', time: '', description: '' });
+
+    setFormState({
+      nama_agenda: "",
+      tanggal_agenda: "",
+      waktu_agenda: "",
+      deskripsi_agenda: "",
+      id_user: 1,
+    });
   };
 
-  const handleEdit = (index) => {
-    setIsEditing(index);
-    setFormState(agendaItems[index]);
+  const handleEdit = (agenda) => {
+    setIsEditing(agenda.id_agenda);
+    setFormState(agenda);
   };
 
-  const handleDelete = (index) => {
-    setAgendaItems(agendaItems.filter((_, i) => i !== index));
+  const handleDelete = async (id_agenda) => {
+    try {
+      await fetch(`http://localhost:5000/api/agendas/${id_agenda}`, {
+        method: "DELETE",
+      });
+      setAgendaItems(
+        agendaItems.filter((item) => item.id_agenda !== id_agenda)
+      );
+    } catch (error) {
+      console.error("Error deleting agenda:", error);
+    }
   };
 
-  const today = new Date().toISOString().split('T')[0];
+  const today = new Date().toISOString().split("T")[0];
 
   return (
     <Container>
@@ -76,8 +138,8 @@ const Tugas = () => {
             <Label>Nama Agenda</Label>
             <Input
               type="text"
-              name="title"
-              value={formState.title}
+              name="nama_agenda"
+              value={formState.nama_agenda}
               onChange={handleInputChange}
               required
             />
@@ -86,8 +148,8 @@ const Tugas = () => {
             <Label>Tanggal Agenda</Label>
             <Input
               type="date"
-              name="date"
-              value={formState.date}
+              name="tanggal_agenda"
+              value={formState.tanggal_agenda}
               onChange={handleInputChange}
               min={today}
               required
@@ -97,8 +159,8 @@ const Tugas = () => {
             <Label>Waktu Agenda</Label>
             <Input
               type="time"
-              name="time"
-              value={formState.time}
+              name="waktu_agenda"
+              value={formState.waktu_agenda}
               onChange={handleInputChange}
               required
             />
@@ -106,28 +168,47 @@ const Tugas = () => {
           <FormGroup>
             <Label>Deskripsi Agenda</Label>
             <TextArea
-              name="description"
-              value={formState.description}
+              name="deskripsi_agenda"
+              value={formState.deskripsi_agenda}
               onChange={handleInputChange}
               rows="4"
             />
           </FormGroup>
           <Button type="submit">
-            {isEditing !== null ? 'Simpan Perubahan' : 'Tambah Agenda'}
+            {isEditing !== null ? "Simpan Perubahan" : "Tambah Agenda"}
           </Button>
         </Form>
-        <ListContainer>
-          {agendaItems.map((item, index) => (
-            <ItemContainer key={index}>
-              <ItemTitle>{item.title}</ItemTitle>
-              <ItemDate>{item.date}</ItemDate>
-              <ItemTime>{item.time}</ItemTime>
-              <ItemDescription>{item.description}</ItemDescription>
-              <EditButton onClick={() => handleEdit(index)}>Edit</EditButton>
-              <DeleteButton onClick={() => handleDelete(index)}>Hapus</DeleteButton>
-            </ItemContainer>
-          ))}
-        </ListContainer>
+        <TableContainer>
+          <Table>
+            <thead>
+              <TableRow>
+                <TableHeader>Nama Agenda</TableHeader>
+                <TableHeader>Tanggal</TableHeader>
+                <TableHeader>Waktu</TableHeader>
+                <TableHeader>Deskripsi</TableHeader>
+                <TableHeader>Aksi</TableHeader>
+              </TableRow>
+            </thead>
+            <tbody>
+              {agendaItems.map((item) => (
+                <TableRow key={item.id_agenda}>
+                  <TableCell>{item.nama_agenda}</TableCell>
+                  <TableCell>{item.tanggal_agenda}</TableCell>
+                  <TableCell>{item.waktu_agenda}</TableCell>
+                  <TableCell>{item.deskripsi_agenda}</TableCell>
+                  <TableCell>
+                    <EditButton onClick={() => handleEdit(item)}>
+                      Edit
+                    </EditButton>
+                    <DeleteButton onClick={() => handleDelete(item.id_agenda)}>
+                      Hapus
+                    </DeleteButton>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </tbody>
+          </Table>
+        </TableContainer>
       </Content>
     </Container>
   );
