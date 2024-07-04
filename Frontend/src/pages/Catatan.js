@@ -1,51 +1,55 @@
 import React, { useState } from 'react';
 import {
+    Container,
+    Header,
     NoteContainer,
     NoteTitle,
-    NoteContent,
+    NoteImage,
     NoteDate,
     AddNoteButton,
     NoteInputContainer,
-    NoteInput
+    FileInput,
+    FileInputLabel,
+    FileNote,
 } from '../components/StyledCatatan';
 
 const Catatan = () => {
     const [notes, setNotes] = useState([]);
-    const [noteContent, setNoteContent] = useState('');
+    const [selectedFile, setSelectedFile] = useState(null);
 
     const handleAddNote = () => {
-        if (noteContent.trim() !== '') {
+        if (selectedFile) {
             const newNote = {
-                content: noteContent,
-                date: new Date().toLocaleDateString()
+                file: URL.createObjectURL(selectedFile),
+                date: new Date().toLocaleDateString(),
             };
             setNotes([...notes, newNote]);
-            setNoteContent('');
+            setSelectedFile(null);
         }
     };
 
+    const handleFileChange = (event) => {
+        setSelectedFile(event.target.files[0]);
+    };
+
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '20px' }}>
-            <h1>Catatan Saya</h1>
+        <Container>
+            <Header>Catatan Saya</Header>
             <NoteInputContainer>
-                <NoteInput
-                    rows="4"
-                    value={noteContent}
-                    onChange={(e) => setNoteContent(e.target.value)}
-                    placeholder="Tulis catatan Anda di sini..."
-                />
+                <FileInputLabel htmlFor="file-input">Browse your computer: (Max: 40MiB)</FileInputLabel>
+                <FileInput id="file-input" type="file" onChange={handleFileChange} />
                 <AddNoteButton onClick={handleAddNote}>Tambah Catatan</AddNoteButton>
             </NoteInputContainer>
             <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
                 {notes.map((note, index) => (
                     <NoteContainer key={index}>
                         <NoteTitle>Catatan {index + 1}</NoteTitle>
-                        <NoteContent>{note.content}</NoteContent>
+                        {note.file && <NoteImage src={note.file} alt="note file" />}
                         <NoteDate>{note.date}</NoteDate>
                     </NoteContainer>
                 ))}
             </div>
-        </div>
+        </Container>
     );
 };
 
